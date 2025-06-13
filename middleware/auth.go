@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"ValidationJWT/jwt" // 🔁 твой валидатор токена
+	"github.com/yar1k3x/JWTValidation/jwt" // 🔁 твой валидатор токена
 
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
@@ -29,13 +29,13 @@ func AuthMiddleware(ctx context.Context) (context.Context, error) {
 	}
 	tokenStr := strings.TrimPrefix(authHeader, prefix)
 
-	claims, err := jwt.ValidateJWT(tokenStr)
+	_, err := jwt.ValidateJWT(tokenStr)
 	if err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "token invalid: %v", err)
 	}
 
 	// Можно сохранить userID в context для использования в handler'ах
-	ctx = context.WithValue(ctx, "userID", claims.Subject)
+	//ctx = context.WithValue(ctx, "userID", claims.Subject)
 
 	return ctx, nil
 }

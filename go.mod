@@ -1,4 +1,4 @@
-module ValidationJWT
+module github.com/yar1k3x/JWTValidation
 
 go 1.23.0
 
